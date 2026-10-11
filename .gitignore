@@ -1,0 +1,5 @@
+/lezard
+.env
+data/
+*.png
+!docs/screenshots/*.png

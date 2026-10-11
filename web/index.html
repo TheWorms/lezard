@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lézard</title>
+<meta name="description" content="Tableau de bord des températures de vos machines">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/app.css">
+<script src="/theme.js"></script>
+<script src="/app.js" defer></script>
+<script src="/settings.js" defer></script>
+<script src="/overview.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <img src="/icon.svg" alt="" width="32" height="32">
+    <div>
+      <h1>Lézard</h1>
+      <p class="sub">Températures des machines</p>
+    </div>
+  </div>
+  <div class="top-right">
+    <span id="updated" class="muted small"></span>
+    <a id="nav-settings" class="btn txt" href="#reglages">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      <span>Réglages</span>
+    </a>
+    <button id="theme" class="btn" type="button" aria-label="Basculer entre thème sombre et clair" title="Thème sombre / clair">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.8 6.8 0 0 0 9.8 9.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+ <div id="dash">
+  <div id="banner" class="banner" role="status" hidden></div>
+
+  <section class="filters" aria-label="Filtres">
+    <div class="seg" id="ranges" role="group" aria-label="Période affichée"></div>
+    <div id="summary" class="summary" aria-live="polite"></div>
+  </section>
+
+  <section id="overview" class="panel" hidden aria-label="Toutes les machines">
+    <div class="panel-head">
+      <h2 id="ov-title"></h2>
+      <div class="panel-tools">
+        <button id="ov-sec" class="btn txt" type="button" aria-pressed="false" hidden>Capteurs secondaires</button>
+        <button id="ov-view" class="btn txt" type="button" aria-pressed="false">Vue tableau</button>
+      </div>
+    </div>
+    <div id="ov-legend" class="ov-legend" role="group" aria-label="Machines affichées"></div>
+    <div id="ov-chart" class="chart-wrap"></div>
+    <div id="ov-table" class="table-wrap" hidden></div>
+    <p id="ov-foot" class="foot muted small"></p>
+  </section>
+
+  <section id="cards" class="cards" aria-label="Machines"></section>
+
+  <section id="empty" class="empty" hidden>
+    <h2>Aucune machine n'a encore envoyé de relevé</h2>
+    <p>Depuis n'importe quelle machine, un relevé s'envoie ainsi (remplace le jeton) :</p>
+    <pre id="empty-cmd"></pre>
+  </section>
+
+  <section id="detail" class="panel" hidden aria-label="Détail d'une machine">
+    <div class="panel-head">
+      <h2 id="detail-title"></h2>
+      <div class="panel-tools">
+        <div id="legend" class="legend"></div>
+        <button id="thr-toggle" class="btn txt" type="button" aria-pressed="true">Seuils</button>
+        <button id="view-toggle" class="btn txt" type="button" aria-pressed="false">Vue tableau</button>
+      </div>
+    </div>
+    <div id="chart" class="chart-wrap"></div>
+    <div id="table" class="table-wrap" hidden></div>
+    <p id="detail-foot" class="foot muted small"></p>
+  </section>
+ </div>
+
+  <section id="settings" class="settings" hidden aria-label="Réglages"></section>
+</main>
+</body>
+</html>

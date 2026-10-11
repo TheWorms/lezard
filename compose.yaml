@@ -1,0 +1,40 @@
+services:
+  lezard:
+    build: .
+    image: lezard:local
+    container_name: lezard
+    restart: unless-stopped
+    ports:
+      # 127.0.0.1 par défaut : mettre l'IP LAN de l'hôte dans .env (LEZARD_BIND_IP) pour que les machines puissent envoyer
+      - "${LEZARD_BIND_IP:-127.0.0.1}:3070:3070"
+    environment:
+      LEZARD_TOKEN: ${LEZARD_TOKEN:?LEZARD_TOKEN manquant dans .env}
+      LEZARD_WARN: ${LEZARD_WARN:-70}
+      LEZARD_CRIT: ${LEZARD_CRIT:-80}
+      LEZARD_STALE: ${LEZARD_STALE:-3m}
+      LEZARD_FORGET: ${LEZARD_FORGET:-720h}
+      LEZARD_RAW_DAYS: ${LEZARD_RAW_DAYS:-3}
+      LEZARD_MAX_SERIES: ${LEZARD_MAX_SERIES:-100}
+      LEZARD_THRESHOLDS: ${LEZARD_THRESHOLDS:-}
+      LEZARD_NAMES: ${LEZARD_NAMES:-}
+      LEZARD_ADMIN_PASSWORD: ${LEZARD_ADMIN_PASSWORD:-}
+      TZ: ${TZ:-Europe/Paris}
+      GOMEMLIMIT: 96MiB
+    volumes:
+      - lezard-data:/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    # limites : un souci ne peut ni saturer la mémoire de l'hôte ni remplir le disque de journaux
+    mem_limit: 256m
+    pids_limit: 128
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "3"
+
+volumes:
+  lezard-data:
