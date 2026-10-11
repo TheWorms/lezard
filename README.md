@@ -36,7 +36,7 @@ Ouvre `http://127.0.0.1:3070`. Mot de passe des Réglages : `demo-admin`.
 ## Installer
 
 ```sh
-git clone <url-du-dépôt> lezard && cd lezard
+git clone https://github.com/TheWorms/lezard.git lezard && cd lezard
 ./scripts/make-env.sh   # demande l'IP d'écoute et le mot de passe des Réglages
 docker compose up -d --build
 ```
@@ -103,3 +103,7 @@ Les autres variables sont dans `.env.example`.
 - Lézard parle HTTP et la lecture n'a pas de mot de passe : à garder sur le réseau local.
 - Conteneur en lecture seule, non-root, sans capacité Linux.
 - Tests : `go vet ./... && go test ./...`
+
+## Licence
+
+GPL-3.0 — voir [LICENSE](LICENSE).
